@@ -1,0 +1,94 @@
+--- a/man/virt-install.pod
++++ a/man/virt-install.pod
+@@ -597,6 +597,10 @@ NATed to the LAN by whichever connection is active.
+ Connect to the LAN using SLIRP. Only use this if running a QEMU guest as
+ an unprivileged user. This provides a very limited form of NAT.
+ 
++=item vde=PATH
++
++Connect to a VDE switch with control socket at C<PATH>.
++
+ =back
+ 
+ If this option is omitted a single NIC will be created in the guest. If
+--- a/virtinst/VirtualNetworkInterface.py	
++++ a/virtinst/VirtualNetworkInterface.py	
+@@ -104,8 +104,9 @@ class VirtualNetworkInterface(VirtualDevice.VirtualDevice):
+     TYPE_USER       = "user"
+     TYPE_ETHERNET   = "ethernet"
+     TYPE_DIRECT   = "direct"
++    TYPE_VDE        = "vde"
+     network_types = [TYPE_BRIDGE, TYPE_VIRTUAL, TYPE_USER, TYPE_ETHERNET,
+-                     TYPE_DIRECT]
++                     TYPE_DIRECT, TYPE_VDE]
+ 
+     def get_network_type_desc(net_type):
+         """
+@@ -137,6 +138,7 @@ class VirtualNetworkInterface(VirtualDevice.VirtualDevice):
+         self._target_dev = None
+         self._source_dev = None
+         self._source_mode = "vepa"
++        self._vde_switch = None
+         self._virtualport = VirtualPort(conn, parsexml, parsexmlnode, caps)
+ 
+         # Generate _random_mac
+@@ -195,6 +197,8 @@ class VirtualNetworkInterface(VirtualDevice.VirtualDevice):
+             return self.bridge
+         if self.type == self.TYPE_ETHERNET or self.type == self.TYPE_DIRECT:
+             return self.source_dev
++        if self.type == self.TYPE_VDE:
++            return self.vde_switch
+         if self.type == self.TYPE_USER:
+             return None
+         return self.network or self.bridge or self.source_dev
+@@ -210,6 +214,8 @@ class VirtualNetworkInterface(VirtualDevice.VirtualDevice):
+             self.bridge = newsource
+         elif self.type == self.TYPE_ETHERNET or self.type == self.TYPE_DIRECT:
+             self.source_dev = newsource
++        elif self.type == self.TYPE_VDE:
++            self.vde_switch = newsource
+         return
+     source = property(get_source, set_source)
+ 
+@@ -300,6 +306,13 @@ class VirtualNetworkInterface(VirtualDevice.VirtualDevice):
+     source_mode = _xml_property(get_source_mode, set_source_mode,
+                                 xpath="./source/@mode")
+ 
++    def get_vde_switch(self):
++        return self._vde_switch
++    def set_vde_switch(self, val):
++        self._vde_switch = val
++    vde_switch = _xml_property(get_vde_switch, set_vde_switch,
++                                xpath="./switch/@path")
++
+     def is_conflict_net(self, conn, mac=None):
+         """
+         @returns: a two element tuple:
+@@ -369,6 +382,8 @@ class VirtualNetworkInterface(VirtualDevice.VirtualDevice):
+             src_xml     = "      <source dev='%s'/>\n" % self.source_dev
+         elif self.type == self.TYPE_DIRECT and self.source_dev:
+             src_xml     = "      <source dev='%s' mode='%s'/>\n" % (self.source_dev, self.source_mode)
++        elif self.type == self.TYPE_VDE and self.vde_switch:
++            src_xml     = "      <switch path='%s'/>\n" % (self.vde_switch,)
+ 
+         if self.model:
+             model_xml   = "      <model type='%s'/>\n" % self.model
+--- a/virtinst/cli.py	
++++ a/virtinst/cli.py	
+@@ -1652,6 +1652,8 @@ def parse_network(guest, optstring, dev=None, mac=None):
+         net_type = VirtualNetworkInterface.TYPE_VIRTUAL
+     elif "bridge" in opts:
+         net_type = VirtualNetworkInterface.TYPE_BRIDGE
++    elif "vde" in opts:
++        net_type = VirtualNetworkInterface.TYPE_VDE
+ 
+     # Build initial device
+     if not dev:
+@@ -1673,6 +1675,7 @@ def parse_network(guest, optstring, dev=None, mac=None):
+     set_param("bridge", "bridge")
+     set_param("model", "model")
+     set_param("macaddr", "mac")
++    set_param("vde_switch", ["switch","vde"])
+ 
+     if opts:
+         raise ValueError(_("Unknown options %s") % opts.keys())

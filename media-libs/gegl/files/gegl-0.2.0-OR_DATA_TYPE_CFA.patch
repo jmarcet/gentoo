@@ -1,0 +1,14 @@
+--- ./operations/external/openraw.c-orig	2012-03-29 22:05:50.000000000 +0200
++++ ./operations/external/openraw.c	2013-09-17 12:07:55.766345953 +0200
+@@ -116,11 +116,6 @@ load_buffer (GeglOperation *operation)
+       goto clean_file;
+     }
+ 
+-  if(or_rawdata_format (rawdata) != OR_DATA_TYPE_CFA)
+-    {
+-      goto clean_file;
+-    }
+-
+   /* Build a gegl_buffer, backed with the libopenraw supplied data. */
+     {
+       GeglRectangle extent = { 0, 0, 0, 0 };

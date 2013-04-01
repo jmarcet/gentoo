@@ -1,0 +1,36 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+depend() {
+	need net
+	use sabnzbd
+}
+
+start() {
+	ebegin "Starting HeadPhones"
+	export LC_ALL=C
+	export LANG=C
+	start-stop-daemon --quiet --background --start \
+		-d ${HP_DIR} -u ${HP_USER}:${HP_GROUP} \
+		--exec ${HP_DIR}/${HP_BIN} -- \
+		--datadir ${HP_DATA} --config ${HP_CONF} \
+		--port ${HP_PORT} --nolaunch ${HP_OPTS}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping HeadPhones"
+	PID=`pidof -x Headphones.py`
+	[ -n "${PID}" ] && kill ${PID}
+	PID=`pidof -x Headphones.py`
+	[ -n "${PID}" ] && kill -9 ${PID}
+	eend
+}
+
+restart() {
+	stop
+	sleep 15
+	start
+}

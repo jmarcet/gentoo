@@ -1,0 +1,11 @@
+--- ./configure-orig	2013-09-29 22:35:04.000000000 +0200
++++ ./configure	2013-09-29 23:46:57.918480309 +0200
+@@ -3514,8 +3514,6 @@ fi
+ if test "$gcov" = "yes" ; then
+   CFLAGS="-fprofile-arcs -ftest-coverage -g $CFLAGS"
+   LDFLAGS="-fprofile-arcs -ftest-coverage $LDFLAGS"
+-elif test "$debug" = "no" ; then
+-  CFLAGS="-O2 -U_FORTIFY_SOURCE -D_FORTIFY_SOURCE=2 $CFLAGS"
+ fi
+ 
+ 

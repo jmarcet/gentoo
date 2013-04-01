@@ -1,0 +1,7 @@
+# UDEV Rules for Teensy boards, http://www.pjrc.com/teensy/
+#
+# Based on the suggestions at:
+#   http://www.pjrc.com/teensy/49-teensy.rules
+
+SUBSYSTEMS=="usb", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", GROUP:="teensy"
+KERNEL=="ttyACM*", ATTRS{idVendor}=="16c0", ATTRS{idProduct}=="04[789]?", GROUP:="teensy", ENV{ID_MM_DEVICE_IGNORE}="1"

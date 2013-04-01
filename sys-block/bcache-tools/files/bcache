@@ -1,0 +1,19 @@
+#!/sbin/runscript
+
+description="Sets up bcache device"
+
+depend()
+{
+	need mdadm procfs sysfs
+	before fsck localmount
+	keyword -openvz -vserver -lxc
+}
+
+start()
+{
+	if [ -e /sys/fs/bcache/register_quiet ]; then
+		echo /dev/sda4 > /sys/fs/bcache/register_quiet
+		echo /dev/md0 > /sys/fs/bcache/register_quiet
+	fi
+	return 0
+}

@@ -1,0 +1,24 @@
+diff -Naur refind-0.6.5.org/Make.tiano refind-0.6.5/Make.tiano
+--- refind-0.6.5.org/Make.tiano	2012-12-28 08:01:25.000000000 +0200
++++ refind-0.6.5/Make.tiano	2013-01-27 22:55:22.172507785 +0200
+@@ -29,7 +29,7 @@
+   LD_CODE = elf_x86_64
+ endif
+ 
+-EDK2BASE = /usr/local/UDK2010/MyWorkSpace
++EDK2BASE = /opt/edk2
+ 
+ # Below file defines TARGET (RELEASE or DEBUG) and TOOL_CHAIN_TAG (GCC44, GCC45, GCC46, or GCC47)
+ include $(EDK2BASE)/Conf/target.txt
+diff -Naur refind-0.6.5.org/filesystems/Make.tiano refind-0.6.5/filesystems/Make.tiano
+--- refind-0.6.5.org/filesystems/Make.tiano	2012-12-30 08:39:31.000000000 +0200
++++ refind-0.6.5/filesystems/Make.tiano	2013-01-27 22:55:51.668151981 +0200
+@@ -29,7 +29,7 @@
+   LD_CODE = elf_x86_64
+ endif
+ 
+-EDK2BASE = /usr/local/UDK2010/MyWorkSpace
++EDK2BASE = /opt/edk2
+ #EDK2BASE = /usr/local/edk2
+ 
+ # Below file defines TARGET (RELEASE or DEBUG) and TOOL_CHAIN_TAG (GCC44, GCC45, or GCC46)

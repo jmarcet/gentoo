@@ -1,0 +1,27 @@
+--- ./offlineimap/imaplibutil.py-orig	2012-06-02 13:41:46.000000000 +0200
++++ ./offlineimap/imaplibutil.py	2013-04-26 13:53:10.729134224 +0200
+@@ -143,15 +143,15 @@ class WrappedIMAP4_SSL(UsefulIMAPMixIn,
+ 
+     def open(self, host=None, port=None):
+         super(WrappedIMAP4_SSL, self).open(host, port)
+-        if (self._fingerprint or not self.ca_certs):
+-            # compare fingerprints
+-            fingerprint = sha1(self.sock.getpeercert(True)).hexdigest()
+-            if fingerprint != self._fingerprint:
+-                raise OfflineImapError("Server SSL fingerprint '%s' for hostnam"
+-                      "e '%s' does not match configured fingerprint. Please ver"
+-                      "ify and set 'cert_fingerprint' accordingly if not set ye"
+-                      "t." % (fingerprint, host),
+-                                       OfflineImapError.ERROR.REPO)
++#        if (self._fingerprint or not self.ca_certs):
++#            # compare fingerprints
++#            fingerprint = sha1(self.sock.getpeercert(True)).hexdigest()
++#            if fingerprint != self._fingerprint:
++#                raise OfflineImapError("Server SSL fingerprint '%s' for hostnam"
++#                      "e '%s' does not match configured fingerprint. Please ver"
++#                      "ify and set 'cert_fingerprint' accordingly if not set ye"
++#                      "t." % (fingerprint, host),
++#                                       OfflineImapError.ERROR.REPO)
+ 
+ 
+ class WrappedIMAP4(UsefulIMAPMixIn, IMAP4):

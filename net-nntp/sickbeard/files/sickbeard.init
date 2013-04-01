@@ -1,0 +1,34 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+depend() {
+	need net
+	use sabnzbd
+}
+
+start() {
+	ebegin "Starting Sick-Beard"
+	start-stop-daemon --quiet --background --start \
+		-d ${SB_DIR} -u ${SB_USER}:${SB_GROUP} \
+		--exec ${SB_DIR}/${SB_BIN} -- \
+		--datadir ${SB_DATA} --config ${SB_CONF} \
+		${SB_OPTS}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping Sick-Beard"
+	PID=`pidof -x SickBeard.py`
+	[ -n "${PID}" ] && kill ${PID}
+	PID=`pidof -x SickBeard.py`
+	[ -n "${PID}" ] && kill -9 ${PID}
+	eend
+}
+
+restart() {
+	stop
+	sleep 15
+	start
+}

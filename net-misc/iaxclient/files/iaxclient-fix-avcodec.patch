@@ -1,0 +1,18 @@
+--- ./lib/codec_ffmpeg.c-orig	2013-05-18 12:53:36.000000000 +0200
++++ ./lib/codec_ffmpeg.c	2013-05-18 12:57:11.486150380 +0200
+@@ -449,7 +449,6 @@ struct iaxc_video_codec *codec_video_ffm
+ 		return NULL;
+ 	}
+ 
+-	avcodec_init();
+ 	avcodec_register_all();
+ 
+ 	c->format = format;
+@@ -723,7 +722,6 @@ int codec_video_ffmpeg_check_codec(int f
+ 	/* These functions are idempotent, so it is okay that we
+ 	 * may call them elsewhere at a different time.
+ 	 */
+-	avcodec_init();
+ 	avcodec_register_all();
+ 
+ 	codec_id = map_iaxc_codec_to_avcodec(format);

@@ -1,0 +1,61 @@
+From gdb-patches-return-83071-listarch-gdb-patches=sources dot redhat dot com at sourceware dot org Tue Aug 16 14:05:36 2011
+Return-Path: <gdb-patches-return-83071-listarch-gdb-patches=sources dot redhat dot com at sourceware dot org>
+Delivered-To: listarch-gdb-patches at sources dot redhat dot com
+Received: (qmail 14782 invoked by alias); 16 Aug 2011 14:05:34 -0000
+Received: (qmail 14773 invoked by uid 22791); 16 Aug 2011 14:05:33 -0000
+X-SWARE-Spam-Status: No, hits=-7.0 required=5.0	tests=AWL,BAYES_00,RCVD_IN_DNSWL_HI,RP_MATCHES_RCVD,SPF_HELO_PASS
+X-Spam-Check-By: sourceware.org
+Received: from mx1.redhat.com (HELO mx1.redhat.com) (209.132.183.28)    by sourceware.org (qpsmtpd/0.43rc1) with ESMTP; Tue, 16 Aug 2011 14:05:15 +0000
+Received: from int-mx10.intmail.prod.int.phx2.redhat.com (int-mx10.intmail.prod.int.phx2.redhat.com [10.5.11.23])	by mx1.redhat.com (8.14.4/8.14.4) with ESMTP id p7GE5FJP009952	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=OK)	for <gdb-patches@sourceware.org>; Tue, 16 Aug 2011 10:05:15 -0400
+Received: from host1.jankratochvil.net (ovpn-116-17.ams2.redhat.com [10.36.116.17])	by int-mx10.intmail.prod.int.phx2.redhat.com (8.14.4/8.14.4) with ESMTP id p7GE5CGJ001872	(version=TLSv1/SSLv3 cipher=DHE-RSA-AES256-SHA bits=256 verify=NO)	for <gdb-patches@sourceware.org>; Tue, 16 Aug 2011 10:05:14 -0400
+Received: from host1.jankratochvil.net (localhost [127.0.0.1])	by host1.jankratochvil.net (8.14.4/8.14.4) with ESMTP id p7GE5C8I015426	for <gdb-patches@sourceware.org>; Tue, 16 Aug 2011 16:05:12 +0200
+Received: (from jkratoch@localhost)	by host1.jankratochvil.net (8.14.4/8.14.4/Submit) id p7GE5BTm015425	for gdb-patches@sourceware.org; Tue, 16 Aug 2011 16:05:11 +0200
+Date: Tue, 16 Aug 2011 16:05:11 +0200
+From: Jan Kratochvil <jan dot kratochvil at redhat dot com>
+To: gdb-patches at sourceware dot org
+Subject: [RFC] Work around PR libc/13097 "linux-vdso.so.1" #2
+Message-ID: <20110816140510.GA15396@host1.jankratochvil.net>
+References: <20110816133657.GA20785@host1.jankratochvil.net> <20110816133744.GA20926@host1.jankratochvil.net>
+MIME-Version: 1.0
+Content-Type: text/plain; charset=us-ascii
+Content-Disposition: inline
+In-Reply-To: <20110816133744 dot GA20926 at host1 dot jankratochvil dot net>
+User-Agent: Mutt/1.5.21 (2010-09-15)
+X-IsSubscribed: yes
+Mailing-List: contact gdb-patches-help at sourceware dot org; run by ezmlm
+Precedence: bulk
+List-Id: <gdb-patches.sourceware.org>
+List-Subscribe: <mailto:gdb-patches-subscribe at sourceware dot org>
+List-Archive: <http://sourceware.org/ml/gdb-patches/>
+List-Post: <mailto:gdb-patches at sourceware dot org>
+List-Help: <mailto:gdb-patches-help at sourceware dot org>, <http://sourceware dot org/ml/#faqs>
+Sender: gdb-patches-owner at sourceware dot org
+Delivered-To: mailing list gdb-patches at sourceware dot org
+
+Hi,
+
+missed the x86_64-m32 case:
+
+gdb/
+2011-08-16  Jan Kratochvil  <jan.kratochvil@redhat.com>
+
+	Work around PR libc/13097.
+	* solib.c (update_solib_list): Ignore "linux-vdso.so.1".
+
+--- a/gdb/solib.c
++++ b/gdb/solib.c
+@@ -783,8 +783,11 @@ update_solib_list (int from_tty, struct target_ops *target)
+ 
+ 	  TRY_CATCH (e, RETURN_MASK_ERROR)
+ 	    {
+-	      /* Fill in the rest of the `struct so_list' node.  */
+-	      if (!solib_map_sections (i))
++	      /* Fill in the rest of the `struct so_list' node.
++		 Work around PR libc/13097.  */
++	      if (!solib_map_sections (i)
++		  && strcmp (i->so_original_name, "linux-vdso.so.1") != 0
++		  && strcmp (i->so_original_name, "linux-gate.so.1") != 0)
+ 		{
+ 		  not_found++;
+ 		  if (not_found_filename == NULL)
+

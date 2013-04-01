@@ -1,0 +1,16 @@
+# This is the transmission-daemon configuration file. For other options and
+# better explanation, take a look at transmission-daemon manual page Note: it's
+# better to configure some settings (like username/password) in
+# /var/transmission/config/settings.json to avoid other users see it with `ps`
+
+HOME_DIR="/var/lib/transmission"
+
+TRANSMISSION_OPTIONS="-b -c ${HOME_DIR}/watch --dht -ep -e /var/log/transmission/transmission.log --log-info -g /etc/transmission --incomplete-dir ${HOME_DIR}/incomplete -m -o --port 8082 -r 0.0.0.0 -T --utp -w ${HOME_DIR}/downloads"
+
+# Run daemon as another user (username or username:groupname)
+# If you change this setting, chown -R /var/transmission/config <and download directory, check web settings>
+#runas_user=transmission
+
+# Location of logfile (should be writeable for runas_user user)
+# Set logfile=syslog to use syslog for logging
+logfile=/var/log/transmission/transmission.log

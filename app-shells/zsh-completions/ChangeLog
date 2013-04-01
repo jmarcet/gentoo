@@ -1,0 +1,38 @@
+# ChangeLog for app-shells/zsh-completions
+# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# $Header: $
+
+*zsh-completions-0.10.0 (19 Sep 2013)
+
+  19 Sep 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  -zsh-completions-0.8.0.ebuild, +zsh-completions-0.10.0.ebuild:
+  version bump
+
+  21 May 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  zsh-completions-0.8.0.ebuild:
+  migrate to EAPI5
+
+*zsh-completions-0.8.0 (21 Mar 2013)
+
+  21 Mar 2013; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  -zsh-completions-0.7.0.ebuild, +zsh-completions-0.8.0.ebuild:
+  version bump: 0.8.0
+
+  22 Oct 2012; Jauhien Piatlicki (jauhien) <piatlicki@gmail.com>
+  zsh-completions-0.7.0.ebuild:
+  ~x86 keyword added
+
+  08 Oct 2012; Manuel Rueger (mrueg) gentoo@rueg.eu
+  zsh-completions-0.7.0.ebuild:
+  Fix typo
+
+  07 Oct 2012; Manuel Rueger (mrueg) gentoo@rueg.eu
+  zsh-completions-0.7.0.ebuild:
+  Fix src_install
+
+*zsh-completions-0.7.0 (07 Oct 2012)
+
+  07 Oct 2012; Manuel Rueger (mrueg) gentoo@rueg.eu
+  +zsh-completions-0.7.0.ebuild, +metadata.xml:
+  Initial version bug #432688, thanks to floppym and hasufell
+

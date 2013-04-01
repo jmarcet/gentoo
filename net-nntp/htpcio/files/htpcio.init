@@ -1,0 +1,36 @@
+#!/sbin/runscript
+# Copyright 1999-2013 Gentoo Foundation
+# Distributed under the terms of the GNU General Public License v2
+# $Header: $
+
+depend() {
+	need net
+	use sabnzbd sickbeard couchpotato xbmc nginx php-fpm
+}
+
+start() {
+	ebegin "Starting HTPC Manager"
+	start-stop-daemon --quiet --background --start \
+		-d ${HT_DIR} -u ${HT_USER}:${HT_GROUP} \
+		--exec ${HT_DIR}/${HT_BIN} -- \
+		--datadir ${HT_DATA} \
+		--pid ${HT_PID} \
+		--port ${HT_PORT}
+	eend $?
+}
+
+stop() {
+	ebegin "Stopping HTPC Manager"
+	start-stop-daemon --stop --pidfile ${HT_PID}
+	PID=`pidof -x Htpc.py`
+	[ -n "${PID}" ] && kill ${PID}
+	PID=`pidof -x Htpc.py`
+	[ -n "${PID}" ] && kill -9 ${PID}
+	eend
+}
+
+restart() {
+	stop
+	sleep 15
+	start
+}

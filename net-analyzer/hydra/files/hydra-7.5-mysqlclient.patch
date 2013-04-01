@@ -1,0 +1,11 @@
+--- ./configure-orig	2013-08-02 13:35:56.000000000 +0200
++++ ./configure	2013-09-28 21:25:18.659294890 +0200
+@@ -830,7 +830,7 @@ XLIBPATHS=""
+ XIPATHS=""
+ 
+ if [ -n "$FIREBIRD_PATH" -o -n "$PCRE_PATH" -o -n "$IDN_PATH" -o -n "$SSL_PATH" -o -n "$CRYPTO_PATH" -o -n "$NSL_PATH" -o -n "$SOCKET_PATH" -o -n "$RESOLV_PATH" -o -n "$SAPR3_PATH" -o -n "$SSH_PATH" -o -n "$POSTGRES_PATH" -o -n "$SVN_PATH" -o -n "$NCP_PATH" -o -n "$CURSES_PATH" -o -n "$ORACLE_PATH" -o -n "$AFP_PATH" -o -n "$MYSQL_PATH" ]; then
+-    XLIBPATHS="-L/usr/lib -L/usr/local/lib -L/lib"
++    XLIBPATHS="-L/usr/lib/mysql -L/usr/local/lib -L/lib"
+ fi
+ if [ -n "$SSL_PATH" ]; then
+     if [ -n "$SSLNEW" ]; then

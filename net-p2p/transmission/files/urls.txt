@@ -1,0 +1,3 @@
+http://www.bluetack.co.uk/config/level1.gz
+http://www.bluetack.co.uk/config/nipfilter.dat.gz
+http://www.bluetack.co.uk/config/pipfilter.dat.gz

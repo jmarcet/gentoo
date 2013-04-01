@@ -1,0 +1,44 @@
+--- libzrtp-0.81.514.orig/projects/gnu/Makefile.in	2009-03-22 14:26:33.000000000 +0100
++++ libzrtp-0.81.514.patched/projects/gnu/Makefile.in	2013-08-28 12:53:26.886062373 +0200
+@@ -288,7 +288,7 @@ distclean-hdr:
+ uninstall-info-am:
+ install-libzrtp_includeHEADERS: $(libzrtp_include_HEADERS)
+ 	@$(NORMAL_INSTALL)
+-	test -z "$(libzrtp_includedir)" || $(mkdir_p) "$(DESTDIR)$(libzrtp_includedir)"
++	test -z "$(DESTDIR)$(libzrtp_includedir)" || $(mkdir_p) "$(DESTDIR)$(libzrtp_includedir)"
+ 	@list='$(libzrtp_include_HEADERS)'; for p in $$list; do \
+ 	  if test -f "$$p"; then d=; else d="$(srcdir)/"; fi; \
+ 	  f=$(am__strip_dir) \
+@@ -678,8 +678,8 @@ uninstall-info: uninstall-info-recursive
+ 
+ 
+ uninstall:
+-	rm -rf $(prefix)/include/libzrtp
+-	rm -f $(prefix)/lib/libzrtp.a
++	rm -rf $(DESTDIR)$(prefix)/include/libzrtp
++	rm -f $(DESTDIR)$(prefix)/lib/libzrtp.a
+ # Tell versions [3.59,3.63) of GNU make to not export all variables.
+ # Otherwise a system limit (for SysV at least) may be exceeded.
+ .NOEXPORT:
+--- libzrtp-0.81.514.orig/third_party/bnlib/Makefile.in	2009-03-22 14:26:34.000000000 +0100
++++ libzrtp-0.81.514.patched/third_party/bnlib/Makefile.in	2013-08-28 13:03:34.443072953 +0200
+@@ -41,12 +41,13 @@ all: $(BNLIB) bntest32.c bntest64.c
+ 
+ # for libzrtp support
+ install: all
+-	test -d /usr/local/include/libzrtp || mkdir /usr/local/include/libzrtp
+-	cp *.h /usr/local/include/libzrtp
+-	cp 'libbn.a' '/usr/local/lib/libbn.a'
+-	chmod 644 /usr/local/lib/libbn.a
+-	chown 0:0 /usr/local/lib/libbn.a
+-	$(RANLIB) '/usr/local/lib/libbn.a'
++	test -d $(DESTDIR)/usr/include/libzrtp || mkdir -p $(DESTDIR)/usr/include/libzrtp
++	test -d $(DESTDIR)/usr/lib || mkdir -p $(DESTDIR)/usr/lib
++	cp *.h $(DESTDIR)/usr/include/libzrtp
++	cp 'libbn.a' '$(DESTDIR)/usr/lib/libbn.a'
++	chmod 644 $(DESTDIR)/usr/lib/libbn.a
++	chown 0:0 $(DESTDIR)/usr/lib/libbn.a
++	$(RANLIB) '$(DESTDIR)/usr/lib/libbn.a'
+ 
+ # for libzrtp support
+ #check: bntest

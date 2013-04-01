@@ -1,0 +1,11 @@
+--- ./src/shairplay.c-orig	2013-05-12 14:11:41.000000000 +0200
++++ ./src/shairplay.c	2013-05-12 14:19:03.889851186 +0200
+@@ -311,7 +311,7 @@ main(int argc, char *argv[])
+ 	raop_cbs.audio_destroy = audio_destroy;
+ 	raop_cbs.audio_set_volume = audio_set_volume;
+ 
+-	raop = raop_init_from_keyfile(10, &raop_cbs, "airport.key", NULL);
++	raop = raop_init_from_keyfile(10, &raop_cbs, "/var/lib/shairplay/airport.key", NULL);
+ 	if (raop == NULL) {
+ 		fprintf(stderr, "Could not initialize the RAOP service\n");
+ 		return -1;
