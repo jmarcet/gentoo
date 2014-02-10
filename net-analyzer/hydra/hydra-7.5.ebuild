@@ -48,13 +48,21 @@ src_prepare() {
 		-e '/ -o /s:$(OPTS):& $(LDFLAGS):g' \
 		Makefile.am || die "sed failed"
 
-	epatch "${FILESDIR}"/${P}-mysqlclient.patch
+	epatch "${FILESDIR}"/${PN}-mysqlclient.patch
 }
 
 src_configure() {
 	# Note: despite the naming convention, the top level script is not an
 	# autoconf-based script.
 	export OPTS="${CFLAGS}"
+	if ! use subversion; then
+		einfo "Disabling Subversion support..."
+		sed -i 's/-lsvn_client-1 -lapr-1 -laprutil-1 -lsvn_subr-1//;s/-DLIBSVN//' configure || die "Could not disable Subversion"
+	fi
+	if ! use mysql; then
+		einfo "Disabling MYSQL support..."
+		sed -i 's/-lmysqlclient//;s/-DLIBMYSQLCLIENT//' configure || die "Could not disable MYSQL"
+	fi
 	./configure \
 		--prefix=/usr \
 		--nostrip \

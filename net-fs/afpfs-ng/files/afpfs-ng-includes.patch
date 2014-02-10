@@ -1,0 +1,13 @@
+--- ./include/afp.h-orig	2008-03-08 17:08:18.000000000 +0100
++++ ./include/afp.h	2014-01-26 00:21:23.101535574 +0100
+@@ -7,8 +7,8 @@
+ #include <netdb.h>
+ #include <sys/statvfs.h>
+ #include <pwd.h>
+-#include <afp_protocol.h>
+-#include <libafpclient.h>
++#include <afpfs-ng/afp_protocol.h>
++#include <afpfs-ng/libafpclient.h>
+ #include <sys/types.h>
+ #include <sys/stat.h>
+ #include <unistd.h>

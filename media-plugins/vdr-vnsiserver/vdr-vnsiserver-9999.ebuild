@@ -4,7 +4,7 @@
 
 EAPI="5"
 
-inherit vdr-plugin-2 git-2
+inherit vdr-plugin-2 git-2 eutils
 
 EGIT_REPO_URI="git://github.com/opdenkamp/xbmc-pvr-addons.git"
 EGIT_MASTER="frodo"
@@ -33,6 +33,8 @@ src_prepare() {
 	fix_vdr_libsi_include demuxer.c
 	fix_vdr_libsi_include recplayer.c
 	fix_vdr_libsi_include videoinput.c
+
+	epatch "${FILESDIR}"/${PN}-vdr213api.patch
 }
 
 src_install() {

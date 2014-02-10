@@ -1,0 +1,31 @@
+--- ./keycodes/evdev-orig	2013-07-28 01:46:45.000000000 +0200
++++ ./keycodes/evdev	2014-01-10 22:21:41.248413215 +0100
+@@ -5,9 +5,9 @@ default xkb_keycodes "evdev" {
+ 	maximum = 255;
+ 
+         # Added for pc105 compatibility
+-        <LSGT> = 94;
++        <LSGT> = 49;
+ 
+-	<TLDE> = 49;
++	<TLDE> = 94;
+ 	<AE01> = 10;
+ 	<AE02> = 11;
+ 	<AE03> = 12;
+@@ -66,13 +66,13 @@ default xkb_keycodes "evdev" {
+ 	<RTSH> = 62;
+ 
+ 	<LALT> = 64;
+-	<LCTL> = 37;
++	<LCTL> = 133;
+ 	<SPCE> = 65;
+ 	<RCTL> = 105;
+ 	<RALT> = 108;
+ 	// Microsoft keyboard extra keys
+-	<LWIN> = 133;
+-	<RWIN> = 134;
++	<LWIN> = 37;
++	<RCTL> = 134;
+ 	<COMP> = 135;
+ 	alias <MENU> = <COMP>;
+ 

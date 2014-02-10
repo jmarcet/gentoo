@@ -1,0 +1,11 @@
+--- ./src/message.c-orig	2012-08-31 14:15:35.000000000 +0200
++++ ./src/message.c	2014-01-29 14:09:18.876020123 +0100
+@@ -441,7 +441,7 @@ fragment:
+ 	/* Fragment and send according to policy */
+ 	if (!err && messagep && *messagep) {
+ 	    if (context) {
+-		err = fragment_and_send(ops, NULL, context, *messagep,
++		err = fragment_and_send(ops, opdata, context, *messagep,
+ 			fragPolicy, messagep);
+ 	    }
+ 	}

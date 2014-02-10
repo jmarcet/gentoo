@@ -1,1 +1,0 @@
-../../progress/eclass/python.eclass

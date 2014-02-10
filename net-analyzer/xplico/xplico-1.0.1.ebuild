@@ -31,7 +31,7 @@ RDEPEND="virtual/mysql
 src_prepare() {
 	epatch "${FILESDIR}"/"${P}"-libndpi.patch
 	epatch "${FILESDIR}"/"${P}"-dont-strip.patch
-	epatch "${FILESDIR}"/"${P}"-buildfix.patch
+	epatch "${FILESDIR}"/"${P}"-sock.patch
 
 	# fix CFLAGS
 	sed -i "s|-g -ggdb -O0|$CFLAGS|g" Makefile

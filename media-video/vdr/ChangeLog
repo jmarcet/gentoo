@@ -1,6 +1,29 @@
 # ChangeLog for media-video/vdr
-# Copyright 1999-2013 Gentoo Foundation; Distributed under the GPL v2
+# Copyright 1999-2014 Gentoo Foundation; Distributed under the GPL v2
 # $Header: $
+
+*vdr-2.1.4 (27 Jan 2014)
+
+  27 Jan 2014; Joerg Bornkessel <hd_brummy@gentoo.org> +vdr-2.1.4.ebuild:
+  bump
+
+*vdr-2.1.3 (05 Jan 2014)
+
+  05 Jan 2014; Joerg Bornkessel <hd_brummy@gentoo.org> vdr-2.1.2-r1.ebuild,
+  +vdr-2.1.3.ebuild, metadata.xml:
+  bump
+
+  25 Oct 2013; Joerg Bornkessel <hd_brummy@gentoo.org> -vdr-2.1.2.ebuild,
+  +vdr-2.1.2-r1.ebuild, metadata.xml:
+  new extpng patchsetM use-flag/patch setup removed, please use use-flag
+  menuorg and depended plugin vdr-menuorg
+
+*vdr-2.1.2-r1 (25 Oct 2013)
+
+  25 Oct 2013; Joerg Bornkessel <hd_brummy@gentoo.org> -vdr-2.1.2.ebuild,
+  +vdr-2.1.2-r1.ebuild, metadata.xml:
+  new extpng patchsetM use-flag/patch setup removed, please use use-flag
+  menuorg and depended plugin vdr-menuorg
 
 *vdr-2.1.2 (22 Oct 2013)
 

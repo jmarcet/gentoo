@@ -1,3 +1,0 @@
-jmarcet's Gentoo overlay
-========================
-

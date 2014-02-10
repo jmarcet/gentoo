@@ -1,0 +1,11 @@
+--- ./ncat/Makefile.in-orig	2014-01-23 18:26:17.000000000 +0100
++++ ./ncat/Makefile.in	2014-01-23 18:30:24.020165947 +0100
+@@ -85,7 +85,7 @@ endif
+ ifneq ($(HAVE_LUA),)
+ LUA_SRCS = ncat_lua.c
+ LUA_OBJS = ncat_lua.o
+-LUA_LIBS = @LIBLUA_LIBS@ -lm
++LUA_LIBS = @LIBLUA_LIBS@ -lm -ldl
+ LUA_CFLAGS += -DHAVE_LUA=1 -I../liblua
+ else
+ LUA_SRCS =
