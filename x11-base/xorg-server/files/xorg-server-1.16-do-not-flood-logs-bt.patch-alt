@@ -1,0 +1,33 @@
+--- ./Xi/exevents.c-orig	2014-07-08 15:48:21.000000000 +0200
++++ ./Xi/exevents.c	2014-10-28 12:06:46.072084162 +0100
+@@ -1380,7 +1380,7 @@ DeliverTouchEmulatedEvent(DeviceIntPtr d
+         return !Success;
+ 
+     nevents = TouchConvertToPointerEvent(ev, &motion, &button);
+-    BUG_RETURN_VAL(nevents == 0, BadValue);
++    BUG_RETURN(nevents == 0);
+ 
+     if (nevents > 1)
+         ptrev = &button;
+--- ./dix/touch.c-orig	2014-07-08 15:48:21.000000000 +0200
++++ ./dix/touch.c	2014-10-28 12:09:07.745089978 +0100
+@@ -640,8 +640,7 @@ TouchConvertToPointerEvent(const Interna
+         return 0;
+     }
+ 
+-    BUG_WARN_MSG(!(event->device_event.flags & TOUCH_POINTER_EMULATED),
+-                 "Non-emulating touch event\n");
++    BUG_WARN(!(event->device_event.flags & TOUCH_POINTER_EMULATED));
+ 
+     motion_event->device_event = event->device_event;
+     motion_event->any.type = ET_Motion;
+--- ./os/backtrace.c-orig	2014-06-04 22:07:23.000000000 +0200
++++ ./os/backtrace.c	2014-10-28 12:12:49.606099086 +0100
+@@ -286,6 +286,7 @@ xorg_backtrace_pstack(void)
+ void
+ xorg_backtrace(void)
+ {
++    return;
+ 
+     ErrorFSigSafe("\n");
+     ErrorFSigSafe("Backtrace:\n");

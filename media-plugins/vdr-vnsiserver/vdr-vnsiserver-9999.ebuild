@@ -6,35 +6,32 @@ EAPI="5"
 
 inherit vdr-plugin-2 git-2 eutils
 
-EGIT_REPO_URI="git://github.com/opdenkamp/xbmc-pvr-addons.git"
-EGIT_MASTER="frodo"
-#EGIT_MASTER="master"
+EGIT_REPO_URI="git://github.com/FernetMenta/vdr-plugin-vnsiserver.git"
+EGIT_MASTER="epgscan"
 EGIT_SOURCEDIR="${WORKDIR}"
 
-inherit git-2
-
-DESCRIPTION="VDR plugin: VNSI Streamserver Plugin (Opdenkamp branch)"
+DESCRIPTION="VDR plugin: VNSI Streamserver Plugin (Odenkamp branch)"
 HOMEPAGE="https://github.com/opdenkamp/xbmc-pvr-addons"
 SRC_URI=""
 
 LICENSE="GPL-2"
 SLOT="0"
-KEYWORDS="~amd64 ~x86"
+KEYWORDS="~x86 ~amd64"
 IUSE=""
 
 DEPEND=">=media-video/vdr-1.7.14"
 RDEPEND="${DEPEND}"
 
-S="${WORKDIR}/addons/pvr.vdr.vnsi/vdr-plugin-vnsiserver"
+S="${WORKDIR}"
 
 src_prepare() {
 	vdr-plugin-2_src_prepare
 
 	fix_vdr_libsi_include demuxer.c
-	fix_vdr_libsi_include recplayer.c
+#	fix_vdr_libsi_include recplayer.c
 	fix_vdr_libsi_include videoinput.c
 
-	epatch "${FILESDIR}"/${PN}-vdr213api.patch
+#	epatch "${FILESDIR}"/${PN}-vdr213api.patch
 }
 
 src_install() {

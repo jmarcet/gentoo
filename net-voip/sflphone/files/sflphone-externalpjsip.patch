@@ -1,0 +1,31 @@
+--- ./daemon/globals.mak-orig	2014-07-18 22:45:09.000000000 +0200
++++ ./daemon/globals.mak	2014-07-29 00:59:43.119296604 +0200
+@@ -7,18 +7,11 @@ sflplugindir=$(sfllibdir)/plugins
+ 
+ ASTYLERC="$(top_srcdir)/../astylerc"
+ indent="/usr/bin/astyle"
+-PJPROJECT_DIR=pjproject-2.2.1
+ 
+ # for pjsip
+-include $(src)/libs/$(PJPROJECT_DIR)/build.mak
+-PJSIP_LIBS=$(APP_LDFLAGS) $(APP_LDLIBS)
++PJSIP_LIBS=$(shell pkg-config --libs libpjproject)
+ 
+-SIP_CFLAGS=-I$(src)/libs/$(PJPROJECT_DIR)/pjsip/include \
+-		   -I$(src)/libs/$(PJPROJECT_DIR)/pjlib/include \
+-		   -I$(src)/libs/$(PJPROJECT_DIR)/pjlib-util/include \
+-		   -I$(src)/libs/$(PJPROJECT_DIR)/pjmedia/include \
+-		   -I$(src)/libs/$(PJPROJECT_DIR)/pjnath/include \
+-		   -DPJ_AUTOCONF=1
++SIP_CFLAGS=$(shell pkg-config --cflags libpjproject)
+ 
+ if BUILD_SPEEX
+ SPEEXCODEC=-DHAVE_SPEEX_CODEC
+@@ -36,7 +29,6 @@ endif
+ AM_CPPFLAGS = \
+ 	-I$(src)/libs \
+ 	-I$(src)/libs/iax2 \
+-	-I$(src)/libs/$(PJPROJECT_DIR) \
+ 	-I$(src)/src \
+ 	-I$(src)/src/config \
+ 	-I$(src)/test \

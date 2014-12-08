@@ -19,7 +19,7 @@ KEYWORDS="~x86 ~amd64"
 IUSE=""
 DEPEND="media-libs/libao";
 RDEPEND="${DEPEND}
-		net-dns/avahi[mdnsresponder-compat]"
+		net-dns/avahi"
 
 src_prepare() {
 	epatch "${FILESDIR}"/key.patch

@@ -1,0 +1,11 @@
+--- ./include/misc.h-orig	2014-07-08 15:48:21.000000000 +0200
++++ ./include/misc.h	2014-10-28 12:39:09.845022910 +0100
+@@ -427,8 +427,6 @@ extern _X_EXPORT unsigned long serverGen
+               ErrorFSigSafe("BUG: triggered 'if (" #cond ")'\n");          \
+               ErrorFSigSafe("BUG: %s:%u in %s()\n",                        \
+                            __FILE__, __LINE__, __func__);                 \
+-              if (with_msg) ErrorFSigSafe(__VA_ARGS__);                    \
+-              xorg_backtrace();                                           \
+           } } while(0)
+ 
+ #define BUG_WARN_MSG(cond, ...)                                           \

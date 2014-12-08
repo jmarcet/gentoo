@@ -8,7 +8,7 @@ PYTHON_DEPEND="2:2.7"
 inherit eutils python
 
 EGIT_REPO_URI="https://github.com/RuudBurger/CouchPotatoServer.git"
-EGIT_MASTER="master"
+EGIT_MASTER="develop"
 SRC_URI=""
 
 inherit git-2
@@ -39,7 +39,9 @@ src_install() {
 	# Install
 	insinto /usr/lib/${PN}
 
-	sed -e 's:\<5050\>:8084:g' -i couchpotato/core/_base/_core/__init__.py
+	for i in couchpotato/core/_base/_core.py couchpotato/core/_base/_core.py; do
+		sed -e 's:\<5050\>:8084:g' -i ${i}
+	done
 
 	for dir in couchpotato libs ; do
 		doins -r ${dir} || die "failed to install ${dir}"

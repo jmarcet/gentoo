@@ -30,6 +30,10 @@ DEPEND="${RDEPEND}
 
 DOCS=( "COPYING.txt" "readme.md" )
 
+src_prepare() {
+	sed -e 's:^#!.\+$:#!/usr/bin/python:' -i ${S}/SickBeard.py
+}
+
 src_install() {
 	# Init script
 	newconfd "${FILESDIR}/${PN}.conf" "${PN}"

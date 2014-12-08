@@ -1,0 +1,20 @@
+--- ./xvattr.pod.in-orig	2014-09-04 13:57:51.000000000 +0200
++++ ./xvattr.pod.in	2014-09-04 13:58:02.346118575 +0200
+@@ -1,5 +1,7 @@
+ =pod
+ 
++=encoding latin1
++
+ =head1 NAME
+ 
+ @PACKAGE@ - Query/Set X11 XVideo Setting(s)
+--- ./xvattr.pod-orig	2014-09-04 13:57:48.000000000 +0200
++++ ./xvattr.pod	2014-09-04 13:58:09.553118701 +0200
+@@ -1,5 +1,7 @@
+ =pod
+ 
++=encoding latin1
++
+ =head1 NAME
+ 
+ xvattr - Query/Set X11 XVideo Setting(s)

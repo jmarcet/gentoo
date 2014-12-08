@@ -1,51 +1,62 @@
 diff -Naur wireless-regdb-2009.08.17-orig/db.txt wireless-regdb-2009.08.17/db.txt
 --- wireless-regdb-2009.08.17-orig/db.txt	2009-08-17 09:25:16.000000000 -0400
 +++ wireless-regdb-2009.08.17/db.txt	2009-09-07 20:44:51.000000000 -0400
-@@ -1,18 +1,7 @@
+@@ -1,18 +1,10 @@
  # This is the world regulatory domain
  country 00:
--	(2402 - 2472 @ 40), (20)
+-	(2402 - 2472 @ AUTO), (20)
 -	# Channel 12 - 13.
--	(2457 - 2482 @ 40), (20), NO-IR
+-	(2457 - 2482 @ AUTO), (20), NO-IR
++	(2402 - 2482 @ 40), (40)
 -	# Channel 14. Only JP enables this and for 802.11b only
--	(2474 - 2494 @ 20), (20), NO-IR
+-	(2474 - 2494 @ 20), (20), NO-IR, NO-OFDM
 -	# Channel 36 - 48
--	(5170 - 5250 @ 80), (20), NO-IR
--	# NB: 5260 MHz - 5700 MHz requies DFS
+-	(5170 - 5250 @ 160), (20), NO-IR
+-	# Channel 52 - 64
+-	(5250 - 5330 @ 160), (20), NO-IR, DFS
+-	# Channel 100 - 144
+-	(5490 - 5730 @ 160), (20), NO-IR, DFS
 -	# Channel 149 - 165
 -	(5735 - 5835 @ 80), (20), NO-IR
--	# IEEE 802.11ad (60GHz), channels 1..3
--	(57240 - 63720 @ 2160), (0)
--
-+	(2182 - 7010 @ 40), (40)
-+	(57240 - 65880 @ 2160), (40)
++	(5140 - 5250 @ 160), (40)
++	(5250 - 5330 @ 160), (40), DFS
++	(5330 - 5730 @ 160), (40)
++	(5735 - 6140 @ 80), (40)
+ 	# IEEE 802.11ad (60GHz), channels 1..3
+ 	(57240 - 63720 @ 2160), (0)
  
- country AD:
- 	# 60 gHz band channels 1-4, ref: Etsi En 302 567
-@@ -274,7 +263,10 @@ country EG: DFS-ETSI
- 	(5170 - 5250 @ 80), (20)
+@@ -294,10 +288,11 @@ country EG: DFS-ETSI
  	(5250 - 5330 @ 80), (20), DFS
  
--country ES: DFS-ETSI
-+country ES:
-+	(2182 - 7010 @ 40), (40)
-+
-+country EX: DFS-ETSI
- 	(2400 - 2483.5 @ 40), (100 mW)
- 	(5150 - 5250 @ 80), (100 mW), NO-OUTDOOR
- 	(5250 - 5350 @ 80), (100 mW), NO-OUTDOOR
-@@ -791,7 +783,10 @@ country UA: DFS-ETSI
+ country ES: DFS-ETSI
+-	(2400 - 2483.5 @ 40), (100 mW)
+-	(5150 - 5250 @ 80), (100 mW), NO-OUTDOOR
+-	(5250 - 5350 @ 80), (100 mW), NO-OUTDOOR, DFS
+-	(5470 - 5725 @ 80), (500 mW), DFS
++	(2400 - 2483.5 @ 40), (40)
++	(5140 - 5250 @ 160), (40)
++	(5250 - 5350 @ 160), (40), DFS
++	(5355 - 5730 @ 160), (40)
++	(5735 - 6140 @ 80), (40)
  	# 60 gHz band channels 1-4, ref: Etsi En 302 567
  	(57240 - 65880 @ 2160), (40), NO-OUTDOOR
  
--country US: DFS-FCC
-+country US:
-+	(2182 - 7010 @ 40), (40)
-+
-+country UX: DFS-FCC
- 	(2402 - 2472 @ 40), (30)
- 	(5170 - 5250 @ 80), (17)
- 	(5250 - 5330 @ 80), (23), DFS
+@@ -851,10 +846,11 @@ country UA: DFS-ETSI
+ 	(57240 - 65880 @ 2160), (40), NO-OUTDOOR
+ 
+ country US: DFS-FCC
+-	(2402 - 2472 @ 40), (30)
+-	(5170 - 5250 @ 80), (17)
+-	(5250 - 5330 @ 80), (23), DFS
+-	(5735 - 5835 @ 80), (30)
++	(2402 - 2482 @ 40), (40)
++	(5140 - 5250 @ 160), (40)
++	(5250 - 5350 @ 160), (40), DFS
++	(5355 - 5730 @ 160), (40)
++	(5735 - 6140 @ 80), (40)
+ 	# 60g band
+ 	# reference: http://cfr.regstoday.com/47cfr15.aspx#47_CFR_15p255
+ 	# channels 1,2,3, EIRP=40dBm(43dBm peak)
 diff -Naur wireless-regdb-2009.08.17-orig/Makefile wireless-regdb-2009.08.17/Makefile
 --- wireless-regdb-2009.08.17-orig/Makefile	2009-08-17 09:25:16.000000000 -0400
 +++ wireless-regdb-2009.08.17/Makefile	2009-09-07 20:45:53.000000000 -0400
@@ -69,7 +80,7 @@ diff -Naur wireless-regdb-2009.08.17-orig/Makefile wireless-regdb-2009.08.17/Mak
  REGDB_PUBKEY ?= $(REGDB_AUTHOR).key.pub.pem
  
  REGDB_UPSTREAM_PUBKEY ?= linville.key.pub.pem
-@@ -91,8 +91,8 @@
+@@ -92,8 +92,8 @@
  # Distributions packagers should do only once:
  #	make install-distro-key
  # This will create a private key for you and install it into

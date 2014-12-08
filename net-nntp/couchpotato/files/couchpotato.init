@@ -4,7 +4,6 @@
 # $Header: $
 
 depend() {
-	need net
 	use sabnzbd
 }
 
